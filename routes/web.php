@@ -23,9 +23,7 @@ Route::get('/contact', function () {
 });
 
 Route::get('/posts', function () {
-    // $posts= Post::with(['author', 'category'])->latest()->get();
-    $posts = Post::latest()->get();
-    return view('posts', ['title' => 'Halaman Blog', 'titlepage' => 'Halaman Blog', 'posts' => $posts]);
+    return view('posts', ['title' => 'Halaman Blog', 'titlepage' => 'Halaman Blog', 'posts' => Post::Filter(request(['search', 'category', 'author']))->latest()->get()]);
 });
 
 Route::get('/posts/{post:slug}', function(Post $post) {
